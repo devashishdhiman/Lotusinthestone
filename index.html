@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sehdevs — Content & Work Calendar (Nov–Dec 2026)</title>
+<style>
+  :root{
+    --web:#2563eb;  --web-bg:#eff6ff;
+    --ig:#c026d3;   --ig-bg:#fdf4ff;
+    --sem:#16a34a;  --sem-bg:#f0fdf4;
+    --yt:#dc2626;   --yt-bg:#fef2f2;
+    --ink:#0f172a;  --muted:#64748b;  --line:#e2e8f0;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; padding:24px;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    color:var(--ink); background:#f1f5f9; font-size:13px;
+  }
+  .sheet{
+    max-width:1180px; margin:0 auto; background:#fff;
+    border-radius:12px; padding:28px 30px 34px;
+    box-shadow:0 1px 3px rgba(15,23,42,.08), 0 12px 32px rgba(15,23,42,.06);
+  }
+
+  /* ---------- Header ---------- */
+  header{border-bottom:3px solid var(--ink); padding-bottom:14px; margin-bottom:18px;}
+  .eyebrow{font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); font-weight:700;}
+  h1{font-size:23px; margin:5px 0 6px; letter-spacing:-.02em;}
+  .sub{font-size:13px; color:var(--muted);}
+  .meta{display:flex; flex-wrap:wrap; gap:8px; margin-top:12px;}
+  .pill{
+    font-size:11px; font-weight:600; padding:4px 10px; border-radius:999px;
+    background:#f1f5f9; border:1px solid var(--line); color:#334155;
+  }
+
+  /* ---------- Toolbar ---------- */
+  .toolbar{display:flex; justify-content:flex-end; gap:8px; margin-bottom:10px;}
+  .btn{
+    font:inherit; font-size:12px; font-weight:600; cursor:pointer;
+    padding:7px 14px; border-radius:7px; border:1px solid var(--ink);
+    background:var(--ink); color:#fff;
+  }
+  .btn:hover{opacity:.88;}
+
+  /* ---------- Legend ---------- */
+  .legend{display:flex; flex-wrap:wrap; gap:16px; margin:0 0 22px; padding:12px 14px;
+    background:#f8fafc; border:1px solid var(--line); border-radius:9px;}
+  .legend span{display:flex; align-items:center; gap:7px; font-size:12px; font-weight:600;}
+  .dot{width:10px; height:10px; border-radius:3px; display:inline-block;}
+
+  /* ---------- Section titles ---------- */
+  h2{font-size:14px; text-transform:uppercase; letter-spacing:.09em; margin:26px 0 12px;
+     padding-bottom:6px; border-bottom:1px solid var(--line);}
+
+  /* ---------- Weekly rhythm ---------- */
+  .rhythm{display:grid; grid-template-columns:repeat(7,1fr); gap:8px;}
+  .rc{border:1px solid var(--line); border-radius:8px; padding:9px 10px; background:#fcfdfe;}
+  .rc b{display:block; font-size:11px; text-transform:uppercase; letter-spacing:.06em;
+        color:var(--muted); margin-bottom:5px;}
+  .rc p{margin:0; font-size:11.5px; line-height:1.45; color:#334155;}
+
+  /* ---------- Calendar ---------- */
+  .cal{margin-bottom:8px; border:1px solid var(--line); border-radius:10px; overflow:hidden;}
+  .cal-head{
+    display:flex; align-items:baseline; gap:10px; padding:10px 14px;
+    background:var(--ink); color:#fff;
+  }
+  .cal-head h3{margin:0; font-size:14px; letter-spacing:.04em; text-transform:uppercase;}
+  .cal-head small{font-size:11px; opacity:.72;}
+
+  .grid{display:grid; grid-template-columns:repeat(7,1fr);}
+  .dow{
+    background:#f8fafc; font-size:10.5px; font-weight:700; text-transform:uppercase;
+    letter-spacing:.08em; color:var(--muted); text-align:center; padding:7px 0;
+    border-bottom:1px solid var(--line); border-left:1px solid var(--line);
+  }
+  .dow:first-child{border-left:none;}
+
+  .day{
+    min-height:96px; padding:5px 5px 6px; border-top:1px solid var(--line);
+    border-left:1px solid var(--line); background:#fff;
+  }
+  .day:nth-child(7n+1){border-left:none;}
+  .num{font-size:11px; font-weight:700; color:#475569; display:block; margin-bottom:3px;}
+  .day.sat{background:#fbfdff;}
+  .day.sun .num{color:#b91c1c;}
+  .day.muted{background:#f9fafb;}
+  .day.muted .num{color:#cbd5e1;}
+
+  /* ---------- Chips ---------- */
+  .chip{
+    display:block; font-size:10px; line-height:1.3; font-weight:600;
+    padding:2.5px 5px; margin-top:3px; border-radius:4px;
+    border-left:3px solid; word-wrap:break-word;
+  }
+  .c-web{border-color:var(--web); background:var(--web-bg); color:#1e3a8a;}
+  .c-ig {border-color:var(--ig);  background:var(--ig-bg);  color:#86198f;}
+  .c-sem{border-color:var(--sem); background:var(--sem-bg); color:#14532d;}
+  .c-yt {border-color:var(--yt);  background:var(--yt-bg);  color:#991b1b;}
+
+  /* Stories: lighter, italic */
+  .c-story{
+    border-left:3px dashed var(--ig); background:#fdf4ff; color:#a21caf;
+    font-weight:500; font-style:italic;
+  }
+  .chip.key{box-shadow:inset 0 0 0 1px rgba(0,0,0,.07); font-weight:700;}
+
+  /* ---------- Key dates ---------- */
+  .keys{display:grid; grid-template-columns:repeat(4,1fr); gap:10px;}
+  .kc{border:1px solid var(--line); border-radius:8px; padding:11px 12px; background:#fcfdfe;}
+  .kc b{display:block; font-size:10.5px; text-transform:uppercase; letter-spacing:.07em;
+        color:var(--muted); margin-bottom:6px;}
+  .kc p{margin:0; font-size:11.5px; line-height:1.55;}
+
+  .note{margin-top:14px; padding:11px 14px; background:#f8fafc; border:1px solid var(--line);
+        border-left:3px solid var(--ig); border-radius:7px; font-size:11.5px; line-height:1.6; color:#334155;}
+
+  footer{margin-top:26px; padding-top:12px; border-top:1px solid var(--line);
+         font-size:11px; color:var(--muted); display:flex; justify-content:space-between; gap:12px;}
+
+  @media (max-width:900px){
+    .rhythm{grid-template-columns:repeat(2,1fr);}
+    .keys{grid-template-columns:repeat(2,1fr);}
+    body{padding:10px;} .sheet{padding:18px 14px;}
+  }
+  @media print{
+    @page{size:A3 landscape; margin:10mm;}
+    body{background:#fff; padding:0; font-size:10px;}
+    .sheet{box-shadow:none; border-radius:0; padding:0; max-width:100%;}
+    .toolbar{display:none;}
+    .day{min-height:78px;}
+    .chip{font-size:8.5px; padding:1.5px 4px;}
+    .cal{break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+  <div class="toolbar">
+    <button class="btn" onclick="window.print()">Print / Save as PDF</button>
+  </div>
+
+  <header>
+    <div class="eyebrow">Sehdevs &middot; Content &amp; Work Calendar</div>
+    <h1>November &ndash; December 2026</h1>
+    <div class="sub">Website building &middot; Instagram (1 post/week, repurposed) &middot; Bi-monthly webinars &middot; YouTube replays</div>
+    <div class="meta">
+      <span class="pill">Start: 1 November 2026</span>
+      <span class="pill">Responsible: Devashish</span>
+      <span class="pill">IG: 1 feed post + stories weekly</span>
+      <span class="pill">Reporting: Weekly content &middot; Monthly performance</span>
+    </div>
+  </header>
+
+  <div class="legend">
+    <span><i class="dot" style="background:var(--web)"></i> Website</span>
+    <span><i class="dot" style="background:var(--ig)"></i> Instagram feed post</span>
+    <span><i class="dot" style="background:var(--ig);opacity:.45"></i> IG Story / Promo</span>
+    <span><i class="dot" style="background:var(--sem)"></i> Webinar</span>
+    <span><i class="dot" style="background:var(--yt)"></i> YouTube</span>
+  </div>
+
+  <!-- ================= WEEKLY RHYTHM ================= -->
+  <h2>Weekly Rhythm</h2>
+  <div class="rhythm">
+    <div class="rc"><b>Sun</b><p>Recap / thank-you story<br>Weekly content report</p></div>
+    <div class="rc"><b>Mon</b><p><strong>1 IG feed post</strong><br>Website content update</p></div>
+    <div class="rc"><b>Tue</b><p>Webinar promo story<br>(webinar weeks)</p></div>
+    <div class="rc"><b>Wed</b><p>YouTube replay upload<br>(post-webinar weeks)</p></div>
+    <div class="rc"><b>Thu</b><p>Website maintenance<br>Speed &amp; security check</p></div>
+    <div class="rc"><b>Fri</b><p>YouTube clip / Short<br>(post-webinar weeks)</p></div>
+    <div class="rc"><b>Sat</b><p>Webinar (1st &amp; 3rd)<br>Buffer / backup</p></div>
+  </div>
+
+  <!-- ================= NOVEMBER ================= -->
+  <h2>November 2026</h2>
+  <div class="cal">
+    <div class="cal-head"><h3>November</h3><small>5 IG feed posts &middot; 2 webinars &middot; 2 YouTube replays</small></div>
+    <div class="grid">
+      <div class="dow">Sun</div><div class="dow">Mon</div><div class="dow">Tue</div>
+      <div class="dow">Wed</div><div class="dow">Thu</div><div class="dow">Fri</div><div class="dow">Sat</div>
+
+      <!-- Week 1 -->
+      <div class="day sun"><span class="num">1</span>
+        <span class="chip c-web">Site audit &amp; backup</span>
+        <span class="chip c-web">Content inventory</span>
+      </div>
+      <div class="day"><span class="num">2</span>
+        <span class="chip c-ig key">IG post 1</span>
+        <span class="chip c-web">Fix broken links</span>
+      </div>
+      <div class="day"><span class="num">3</span>
+        <span class="chip c-story">Webinar promo story</span>
+        <span class="chip c-yt">Thumbnail &amp; description</span>
+      </div>
+      <div class="day"><span class="num">4</span>
+        <span class="chip c-web">Repurpose content bank</span>
+      </div>
+      <div class="day"><span class="num">5</span>
+        <span class="chip c-web">Maintenance check</span>
+      </div>
+      <div class="day"><span class="num">6</span>
+        <span class="chip c-yt">Webinar tech check</span>
+      </div>
+      <div class="day sat"><span class="num">7</span>
+        <span class="chip c-sem key">WEBINAR 1</span>
+      </div>
+
+      <!-- Week 2 -->
+      <div class="day sun"><span class="num">8</span>
+        <span class="chip c-story">Thank-you recap story</span>
+      </div>
+      <div class="day"><span class="num">9</span>
+        <span class="chip c-ig key">IG post 1</span>
+        <span class="chip c-web">Homepage refresh</span>
+      </div>
+      <div class="day"><span class="num">10</span>
+        <span class="chip c-story">Replay promo story</span>
+      </div>
+      <div class="day"><span class="num">11</span>
+        <span class="chip c-yt key">Replay 1 upload</span>
+      </div>
+      <div class="day"><span class="num">12</span>
+        <span class="chip c-web">Books &amp; articles index</span>
+      </div>
+      <div class="day"><span class="num">13</span>
+        <span class="chip c-yt">Clip / Short</span>
+      </div>
+      <div class="day sat"><span class="num">14</span>
+        <span class="chip c-web">Backup &amp; buffer</span>
+      </div>
+
+      <!-- Week 3 -->
+      <div class="day sun"><span class="num">15</span>
+        <span class="chip c-web">Publish article 1</span>
+      </div>
+      <div class="day"><span class="num">16</span>
+        <span class="chip c-ig key">IG post 1</span>
+        <span class="chip c-web">Publish article 2</span>
+      </div>
+      <div class="day"><span class="num">17</span>
+        <span class="chip c-story">Webinar promo story</span>
+        <span class="chip c-yt">Thumbnail &amp; description</span>
+      </div>
+      <div class="day"><span class="num">18</span>
+        <span class="chip c-web">Webinar landing page</span>
+      </div>
+      <div class="day"><span class="num">19</span>
+        <span class="chip c-web">Maintenance check</span>
+      </div>
+      <div class="day"><span class="num">20</span>
+        <span class="chip c-yt">Webinar tech check</span>
+      </div>
+      <div class="day sat"><span class="num">21</span>
+        <span class="chip c-sem key">WEBINAR 2</span>
+      </div>
+
+      <!-- Week 4 -->
+      <div class="day sun"><span class="num">22</span>
+        <span class="chip c-story">Thank-you recap story</span>
+      </div>
+      <div class="day"><span class="num">23</span>
+        <span class="chip c-ig key">IG post 1</span>
+        <span class="chip c-web">Mobile check</span>
+      </div>
+      <div class="day"><span class="num">24</span>
+        <span class="chip c-story">Replay promo story</span>
+      </div>
+      <div class="day"><span class="num">25</span>
+        <span class="chip c-yt key">Replay 2 upload</span>
+      </div>
+      <div class="day"><span class="num">26</span>
+        <span class="chip c-web">Image compression / speed</span>
+      </div>
+      <div class="day"><span class="num">27</span>
+        <span class="chip c-yt">Clip / Short</span>
+      </div>
+      <div class="day sat"><span class="num">28</span>
+        <span class="chip c-web">Backup &amp; buffer</span>
+      </div>
+
+      <!-- Week 5 -->
+      <div class="day sun"><span class="num">29</span>
+        <span class="chip c-web">Events page update</span>
+      </div>
+      <div class="day"><span class="num">30</span>
+        <span class="chip c-ig key">IG post 1</span>
+        <span class="chip c-web key">Monthly report</span>
+      </div>
+      <div class="day muted"><span class="num">1</span></div>
+      <div class="day muted"><span class="num">2</span></div>
+      <div class="day muted"><span class="num">3</span></div>
+      <div class="day muted"><span class="num">4</span></div>
+      <div class="day muted"><span class="num">5</span></div>
+    </div>
+  </div>
+
+  <!-- ================= DECEMBER ================= -->
+  <h2>December 2026</h2>
+  <div class="cal">
+    <div class="cal-head"><h3>December</h3><small>4 IG feed posts &middot; 2 webinars &middot; year-end review</small></div>
+    <div class="grid">
+      <div class="dow">Sun</div><div class="dow">Mon</div><div class="dow">Tue</div>
+      <div class="dow">Wed</div><div class="dow">Thu</div><div class="dow">Fri</div><div class="dow">Sat</div>
+
+      <!-- Week 1 -->
+      <div class="day muted"><span class="num">29</span></div>
+      <div class="day muted"><span class="num">30</span></div>
+      <div class="day"><span class="num">1</span>
+        <span class="chip c-story">Webinar promo story</span>
+        <span class="chip c-yt">Thumbnail &amp; description</span>
+      </div>
+      <div class="day"><span class="num">2</span>
+        <span class="chip c-web">Publish article</span>
+      </div>
+      <div class="day"><span class="num">3</span>
+        <span class="chip c-web">Maintenance check</span>
+      </div>
+      <div class="day"><span class="num">4</span>
+        <span class="chip c-yt">Webinar tech check</span>
+      </div>
+      <div class="day sat"><span class="num">5</span>
+        <span class="chip c-sem key">WEBINAR 3</span>
+      </div>
+
+      <!-- Week 2 -->
+      <div class="day sun"><span class="num">6</span>
+        <span class="chip c-story">Thank-you recap story</span>
+      </div>
+      <div class="day"><span class="num">7</span>
+        <span class="chip c-ig key">IG post 1</span>
+        <span class="chip c-web">Publish article 2</span>
+      </div>
+      <div class="day"><span class="num">8</span>
+        <span class="chip c-story">Replay promo story</span>
+      </div>
+      <div class="day"><span class="num">9</span>
+        <span class="chip c-yt key">Replay 3 upload</span>
+      </div>
+      <div class="day"><span class="num">10</span>
+        <span class="chip c-web">Book page + SEO basics</span>
+      </div>
+      <div class="day"><span class="num">11</span>
+        <span class="chip c-yt">Clip / Short</span>
+      </div>
+      <div class="day sat"><span class="num">12</span>
+        <span class="chip c-web">Backup &amp; buffer</span>
+      </div>
+
+      <!-- Week 3 -->
+      <div class="day sun"><span class="num">13</span>
+        <span class="chip c-web">Articles refresh</span>
+      </div>
+      <div class="day"><span class="num">14</span>
+        <span class="chip c-ig key">IG post 1</span>
+        <span class="chip c-web">Security &amp; plugin update</span>
+      </div>
+      <div class="day"><span class="num">15</span>
+        <span class="chip c-story">Webinar promo story</span>
+        <span class="chip c-yt">Thumbnail &amp; description</span>
+      </div>
+      <div class="day"><span class="num">16</span>
+        <span class="chip c-web">Webinar landing page</span>
+      </div>
+      <div class="day"><span class="num">17</span>
+        <span class="chip c-web">Maintenance check</span>
+      </div>
+      <div class="day"><span class="num">18</span>
+        <span class="chip c-yt">Webinar tech check</span>
+      </div>
+      <div class="day sat"><span class="num">19</span>
+        <span class="chip c-sem key">WEBINAR 4</span>
+      </div>
+
+      <!-- Week 4 -->
+      <div class="day sun"><span class="num">20</span>
+        <span class="chip c-story">Thank-you recap story</span>
+      </div>
+      <div class="day"><span class="num">21</span>
+        <span class="chip c-ig key">IG post 1</span>
+        <span class="chip c-web">Holiday content update</span>
+      </div>
+      <div class="day"><span class="num">22</span>
+        <span class="chip c-story">Replay promo story</span>
+      </div>
+      <div class="day"><span class="num">23</span>
+        <span class="chip c-yt key">Replay 4 upload</span>
+      </div>
+      <div class="day"><span class="num">24</span>
+        <span class="chip c-web">Site review</span>
+      </div>
+      <div class="day"><span class="num">25</span>
+        <span class="chip c-yt">Clip / Short</span>
+      </div>
+      <div class="day sat"><span class="num">26</span>
+        <span class="chip c-web">Backup &amp; buffer</span>
+      </div>
+
+      <!-- Week 5 -->
+      <div class="day sun"><span class="num">27</span>
+        <span class="chip c-web">Monthly report prep</span>
+      </div>
+      <div class="day"><span class="num">28</span>
+        <span class="chip c-ig key">IG post 1</span>
+        <span class="chip c-web">Fix issues / backlog</span>
+      </div>
+      <div class="day"><span class="num">29</span>
+        <span class="chip c-story">Year-end recap story</span>
+      </div>
+      <div class="day"><span class="num">30</span>
+        <span class="chip c-web">January calendar</span>
+      </div>
+      <div class="day"><span class="num">31</span>
+        <span class="chip c-web key">Monthly report</span>
+        <span class="chip c-yt">Optimise titles / tags</span>
+      </div>
+      <div class="day muted"><span class="num">1</span></div>
+      <div class="day muted"><span class="num">2</span></div>
+    </div>
+  </div>
+
+  <!-- ================= KEY DATES ================= -->
+  <h2>Key Dates &amp; Cadence</h2>
+  <div class="keys">
+    <div class="kc"><b>Webinars</b><p>Nov 7 &middot; Nov 21<br>Dec 5 &middot; Dec 19</p></div>
+    <div class="kc"><b>YouTube replays</b><p>Nov 11 &middot; Nov 25<br>Dec 9 &middot; Dec 23</p></div>
+    <div class="kc"><b>YouTube clips</b><p>Nov 13 &middot; Nov 27<br>Dec 11 &middot; Dec 25</p></div>
+    <div class="kc"><b>Reporting</b><p>Weekly content: every Sunday<br>Monthly: Nov 30 &amp; Dec 31</p></div>
+  </div>
+
+  <div class="note">
+    <strong>Instagram approach:</strong> 1 feed post per week (every Monday), repurposed from the existing post library —
+    5 posts in November, 4 in December. Webinar promotion and follow-up are handled through <em>Stories</em> rather than extra feed posts,
+    keeping the feed consistent while still driving webinar attendance.
+  </div>
+
+  <footer>
+    <span>Sehdevs &middot; Content &amp; Work Calendar &middot; Prepared by Devashish</span>
+    <span>Webinars: 1st &amp; 3rd Saturdays</span>
+  </footer>
+
+</div>
+
+</body>
+</html>
